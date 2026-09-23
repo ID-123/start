@@ -3,15 +3,11 @@
 import Link from "next/link";
 
 export default function LoginForm() {
-  function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
-    event.preventDefault();
-
-    const formData = new FormData(event.currentTarget);
-
+  function handleSubmit(formData: FormData) {
     const email = formData.get("email");
     const password = formData.get("password");
 
-    console.log("Data received.");
+    console.log(`Data received: ${email} | ${password}`);
   }
 
   return (
@@ -21,7 +17,7 @@ export default function LoginForm() {
       </p>
 
       <form
-        onSubmit={handleSubmit}
+        action={handleSubmit}
         className="flex items-center justify-center flex-col gap-1.5"
       >
         <input
