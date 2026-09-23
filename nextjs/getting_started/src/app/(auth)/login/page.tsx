@@ -1,9 +1,16 @@
 "use client";
 
+import { useActionState } from "react";
 import { Login } from "@/app/lib/actions";
 import Link from "next/link";
 
+const initialState = {
+  message: "",
+};
+
 export default function LoginPage() {
+  const [state, formAction] = useActionState(Login, initialState);
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen gap-2">
       <p>
@@ -11,7 +18,7 @@ export default function LoginPage() {
       </p>
 
       <form
-        action={Login}
+        action={formAction}
         className="flex items-center justify-center flex-col gap-1.5"
       >
         <input
@@ -30,6 +37,9 @@ export default function LoginPage() {
           Send
         </button>
       </form>
+
+      <p>{state.message}</p>
+
       <p>
         Don't have an account?{" "}
         <Link href={"/register"} className="underline hover:text-blue-500">

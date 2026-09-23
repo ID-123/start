@@ -1,9 +1,16 @@
 "use client";
 
+import { useActionState } from "react";
 import { Register } from "@/app/lib/actions";
 import Link from "next/link";
 
+const initialState = {
+  message: "",
+};
+
 export default function RegisterPage() {
+  const [state, formAction] = useActionState(Register, initialState);
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen gap-2">
       <p>
@@ -11,7 +18,7 @@ export default function RegisterPage() {
       </p>
 
       <form
-        action={Register}
+        action={formAction}
         className="flex flex-col items-center justify-center gap-1.5"
       >
         <input
@@ -39,6 +46,8 @@ export default function RegisterPage() {
           Send
         </button>
       </form>
+
+      <p>{state.message}</p>
       <p>
         Already hace an account?{" "}
         <Link href={"/login"} className="underline hover:text-blue-600">
