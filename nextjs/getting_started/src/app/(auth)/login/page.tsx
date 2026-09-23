@@ -1,15 +1,9 @@
 "use client";
 
+import { Login } from "@/app/lib/actions";
 import Link from "next/link";
 
-export default function LoginForm() {
-  function handleSubmit(formData: FormData) {
-    const email = formData.get("email");
-    const password = formData.get("password");
-
-    console.log(`Data received: ${email} | ${password}`);
-  }
-
+export default function LoginPage() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen gap-2">
       <p>
@@ -17,7 +11,7 @@ export default function LoginForm() {
       </p>
 
       <form
-        action={handleSubmit}
+        action={Login}
         className="flex items-center justify-center flex-col gap-1.5"
       >
         <input

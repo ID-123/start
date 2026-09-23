@@ -1,16 +1,9 @@
 "use client";
 
+import { Register } from "@/app/lib/actions";
 import Link from "next/link";
 
-export default function RegisterForm() {
-  function handleSubmit(formData: FormData) {
-    const user = formData.get("username");
-    const email = formData.get("email");
-    const password = formData.get("password");
-
-    console.log(`Data received: ${user} | ${email} | ${password}`);
-  }
-
+export default function RegisterPage() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen gap-2">
       <p>
@@ -18,7 +11,7 @@ export default function RegisterForm() {
       </p>
 
       <form
-        action={handleSubmit}
+        action={Register}
         className="flex flex-col items-center justify-center gap-1.5"
       >
         <input
