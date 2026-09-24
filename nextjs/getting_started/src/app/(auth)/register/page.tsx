@@ -1,14 +1,16 @@
 "use client";
 
+import Link from "next/link";
 import { useActionState } from "react";
 import { Register } from "@/app/lib/actions";
-import Link from "next/link";
+import { SubmitButton } from "@/app/ui/submit-button";
 
 const initialState = {
   message: "",
 };
 
 export default function RegisterPage() {
+  // Check form status and set message
   const [state, formAction] = useActionState(Register, initialState);
 
   return (
@@ -42,9 +44,7 @@ export default function RegisterPage() {
           placeholder="Password"
         />
 
-        <button className="border p-0.5 hover:cursor-pointer" type="submit">
-          Send
-        </button>
+        <SubmitButton />
       </form>
 
       <p>{state.message}</p>
