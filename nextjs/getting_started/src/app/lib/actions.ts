@@ -6,6 +6,7 @@ import { loginSchema, registerSchema } from "./validations";
 type FormState = {
   message?: string;
   errors?: {
+    username?: string[];
     email?: string[];
     password?: string[];
   };
@@ -50,8 +51,10 @@ export async function Register(
   });
 
   if (!validateFields.success) {
+    const errors = z.flattenError(validateFields.error);
+
     return {
-      message: "Data required to register missing.",
+      errors: errors.fieldErrors,
     };
   }
 

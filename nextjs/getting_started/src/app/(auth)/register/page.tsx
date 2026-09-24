@@ -28,21 +28,30 @@ export default function RegisterPage() {
           type="text"
           name="username"
           placeholder="Username"
+          required
         />
+
+        {state.errors?.username && <p>{state.errors.username[0]}</p>}
 
         <input
           className="border p-0.5"
           type="email"
           name="email"
           placeholder="Email"
+          required
         />
+
+        {state.errors?.email && <p>{state.errors.email[0]}</p>}
 
         <input
           className="border p-0.5"
           type="password"
           name="password"
           placeholder="Password"
+          required
         />
+
+        {state.errors?.password && <p>{state.errors.password[0]}</p>}
 
         <SubmitButton />
       </form>
