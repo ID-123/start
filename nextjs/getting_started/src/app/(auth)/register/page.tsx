@@ -4,10 +4,9 @@ import Link from "next/link";
 import { useActionState } from "react";
 import { Register } from "@/app/lib/actions";
 import { SubmitButton } from "@/app/ui/submit-button";
+import { FormState } from "@/app/lib/types";
 
-const initialState = {
-  message: "",
-};
+const initialState: FormState = {};
 
 export default function RegisterPage() {
   // Check form status and set message
@@ -22,6 +21,7 @@ export default function RegisterPage() {
       <form
         action={formAction}
         className="flex flex-col items-center justify-center gap-1.5"
+        noValidate
       >
         <input
           className="border p-0.5"

@@ -4,10 +4,9 @@ import Link from "next/link";
 import { useActionState } from "react";
 import { Login } from "@/app/lib/actions";
 import { SubmitButton } from "@/app/ui/submit-button";
+import { FormState } from "@/app/lib/types";
 
-const initialState = {
-  message: "",
-};
+const initialState: FormState = {};
 
 export default function LoginPage() {
   // Check form status and set message

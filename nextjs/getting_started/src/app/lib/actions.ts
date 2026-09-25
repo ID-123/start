@@ -2,18 +2,10 @@
 
 import * as z from "zod";
 import { loginSchema, registerSchema } from "./validations";
-
-type FormState = {
-  message?: string;
-  errors?: {
-    username?: string[];
-    email?: string[];
-    password?: string[];
-  };
-};
+import { FormState } from "./types";
 
 export async function Login(
-  previousState: FormState,
+  _previousState: FormState,
   formData: FormData,
 ): Promise<FormState> {
   const validateFields = loginSchema.safeParse({
@@ -41,7 +33,7 @@ export async function Login(
 }
 
 export async function Register(
-  previousState: FormState,
+  _previousState: FormState,
   formData: FormData,
 ): Promise<FormState> {
   const validateFields = registerSchema.safeParse({
@@ -60,7 +52,7 @@ export async function Register(
 
   const { username, email, password } = validateFields.data;
 
-  console.log(`Data received: ${username} | ${email} | ${password}`);
+  console.log(`Data received: ${username} | ${email}`);
 
   await new Promise((resolve) => setTimeout(resolve, 1500));
 
