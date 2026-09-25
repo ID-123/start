@@ -5,6 +5,7 @@ import { useActionState } from "react";
 import { Login } from "@/app/lib/actions";
 import { SubmitButton } from "@/app/ui/submit-button";
 import { FormState } from "@/app/lib/types";
+import ReturnButton from "@/app/ui/return-button";
 
 const initialState: FormState = {};
 
@@ -54,6 +55,7 @@ export default function LoginPage() {
           Register
         </Link>
       </p>
+      <ReturnButton />
     </div>
   );
 }

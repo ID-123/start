@@ -1,8 +1,11 @@
 "use server";
 
 import * as z from "zod";
-import { loginSchema, registerSchema } from "./validations";
+import { headers } from "next/headers";
+
+import { auth } from "./auth";
 import { FormState } from "./types";
+import { loginSchema, registerSchema } from "./validations";
 
 export async function Login(
   _previousState: FormState,
@@ -23,13 +26,25 @@ export async function Login(
 
   const { email, password } = validateFields.data;
 
-  console.log(`Data received: ${email} `);
+  try {
+    await auth.api.signInEmail({
+      body: {
+        email,
+        password,
+      },
+      headers: await headers(),
+    });
 
-  await new Promise((resolve) => setTimeout(resolve, 1500));
+    return {
+      message: "Login successful!",
+    };
+  } catch (error) {
+    console.error("Login failed:", error);
 
-  return {
-    message: `Login received for ${email}`,
-  };
+    return {
+      message: "Invalid email or password.",
+    };
+  }
 }
 
 export async function Register(
@@ -54,9 +69,23 @@ export async function Register(
 
   console.log(`Data received: ${username} | ${email}`);
 
-  await new Promise((resolve) => setTimeout(resolve, 1500));
+  try {
+    await auth.api.signUpEmail({
+      body: {
+        name: username,
+        email,
+        password,
+      },
+    });
 
-  return {
-    message: `Welcome, ${username}!`,
-  };
+    return {
+      message: `Welcome in, ${username}!`,
+    };
+  } catch (error) {
+    console.error("Registration failed:", error);
+
+    return {
+      message: "Unable to create your account.",
+    };
+  }
 }

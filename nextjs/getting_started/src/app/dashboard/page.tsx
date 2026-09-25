@@ -1,3 +1,6 @@
+import { headers } from "next/headers";
+
+import { auth } from "@/app/lib/auth";
 import { Card } from "@/app/ui/dashboard/cards";
 import RevenueChart from "@/app/ui/dashboard/revenue-chart";
 import LatestInvoices from "@/app/ui/dashboard/latest-invoices";
@@ -5,6 +8,10 @@ import { lusitana } from "@/app/ui/fonts";
 import { fetchLatestInvoices, fetchRevenue, fetchCardData } from "../lib/data";
 
 export default async function DashboardPage() {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
   const revenue = await fetchRevenue();
   const latestInvoices = await fetchLatestInvoices();
   const {
@@ -16,9 +23,12 @@ export default async function DashboardPage() {
 
   return (
     <main>
-      <h1 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
-        Dashboard
-      </h1>
+      <div className={`${lusitana.className} flex flex-row justify-between`}>
+        <h1 className={`${lusitana.className} mb-4 text-xl md:text-2xl`}>
+          Dashboard
+        </h1>
+        <p>Logged in as: {session?.user.name ?? "Not authenticated"}</p>
+      </div>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         <Card title="Collected" value={totalPaidInvoices} type="collected" />
         <Card title="Pending" value={totalPendingInvoices} type="pending" />

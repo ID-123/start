@@ -5,6 +5,7 @@ import { useActionState } from "react";
 import { Register } from "@/app/lib/actions";
 import { SubmitButton } from "@/app/ui/submit-button";
 import { FormState } from "@/app/lib/types";
+import ReturnButton from "@/app/ui/return-button";
 
 const initialState: FormState = {};
 
@@ -58,11 +59,12 @@ export default function RegisterPage() {
 
       <p>{state.message}</p>
       <p>
-        Already hace an account?{" "}
+        Already have an account?{" "}
         <Link href={"/login"} className="underline hover:text-blue-600">
           Log In
         </Link>
       </p>
+      <ReturnButton />
     </div>
   );
 }
