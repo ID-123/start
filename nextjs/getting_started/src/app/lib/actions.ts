@@ -23,7 +23,7 @@ export async function Login(
 
   const { email, password } = validateFields.data;
 
-  console.log(`Data received: ${email} | ${password}`);
+  console.log(`Data received: ${email} `);
 
   await new Promise((resolve) => setTimeout(resolve, 1500));
 
