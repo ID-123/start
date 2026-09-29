@@ -49,7 +49,6 @@ export default async function LatestInvoices({
                   className={`${lusitana.className} truncate text-sm font-medium md:text-base`}
                 >
                   {invoice.amount}
-                  src/app/dashboard/page.tsx{" "}
                 </p>
               </div>
             );
