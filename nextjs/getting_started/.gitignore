@@ -49,3 +49,6 @@ next-env.d.ts
 .devin/
 .windsurf/
 skills-lock.json
+
+# Backups
+backup*.sql

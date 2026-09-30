@@ -2,7 +2,69 @@ import Image from 'next/image';
 import { UpdateInvoice, DeleteInvoice } from '@/app/ui/invoices/buttons';
 import InvoiceStatus from '@/app/ui/invoices/status';
 import { formatDateToLocal, formatCurrency } from '@/app/lib/utils';
-import { fetchFilteredInvoices } from '@/app/lib/data';
+
+const placeholderInvoices = [
+  {
+    id: 'inv_1',
+    customer_id: 'cust_1',
+    name: 'Evil Rabbit',
+    email: 'evil@rabbit.com',
+    image_url: '/customers/evil-rabbit.png',
+    date: '2024-01-12',
+    amount: 2450,
+    status: 'pending' as const,
+  },
+  {
+    id: 'inv_2',
+    customer_id: 'cust_2',
+    name: 'Delba de Oliveira',
+    email: 'delba@oliveira.com',
+    image_url: '/customers/delba-de-oliveira.png',
+    date: '2024-01-08',
+    amount: 1840,
+    status: 'paid' as const,
+  },
+  {
+    id: 'inv_3',
+    customer_id: 'cust_3',
+    name: 'Lee Robinson',
+    email: 'lee@robinson.com',
+    image_url: '/customers/lee-robinson.png',
+    date: '2024-01-03',
+    amount: 910,
+    status: 'pending' as const,
+  },
+  {
+    id: 'inv_4',
+    customer_id: 'cust_4',
+    name: 'Amy Burns',
+    email: 'amy@burns.com',
+    image_url: '/customers/amy-burns.png',
+    date: '2023-12-27',
+    amount: 1290,
+    status: 'paid' as const,
+  },
+  {
+    id: 'inv_5',
+    customer_id: 'cust_5',
+    name: 'Michael Novotny',
+    email: 'michael@novotny.com',
+    image_url: '/customers/michael-novotny.png',
+    date: '2023-12-18',
+    amount: 520,
+    status: 'pending' as const,
+  },
+  {
+    id: 'inv_6',
+    customer_id: 'cust_6',
+    name: 'Balazs Orban',
+    email: 'balazs@orban.com',
+    image_url: '/customers/balazs-orban.png',
+    date: '2023-12-10',
+    amount: 1675,
+    status: 'paid' as const,
+  },
+];
 
 export default async function InvoicesTable({
   query,
@@ -11,7 +73,12 @@ export default async function InvoicesTable({
   query: string;
   currentPage: number;
 }) {
-  const invoices = await fetchFilteredInvoices(query, currentPage);
+  const filteredInvoices = placeholderInvoices.filter((invoice) => {
+    const searchableText = `${invoice.name} ${invoice.email} ${invoice.amount} ${invoice.date} ${invoice.status}`.toLowerCase();
+    return searchableText.includes(query.toLowerCase());
+  });
+
+  const invoices = filteredInvoices.slice((currentPage - 1) * 6, currentPage * 6);
 
   return (
     <div className="mt-6 flow-root">
