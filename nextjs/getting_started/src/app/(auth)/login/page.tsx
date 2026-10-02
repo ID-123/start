@@ -22,7 +22,7 @@ export default function LoginPage() {
       <form
         action={formAction}
         noValidate
-        className="flex items-center justify-center flex-col gap-1.5"
+        className="flex items-center justify-center flex-col gap-1.5 details-content:h-1/2"
       >
         <input
           className="border p-0.5"
