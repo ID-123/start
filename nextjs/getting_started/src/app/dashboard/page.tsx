@@ -17,6 +17,7 @@ export default async function DashboardPage() {
           Dashboard
         </h1>
         <p>Logged in as: {session?.user.name ?? "Not authenticated"}</p>
+        <p>UserID: {session?.user.id ?? "Not authenticated"}</p>
       </div>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         <Card title="Reservations" value="-" type="reservations" />

@@ -7,6 +7,7 @@ import { auth } from "./auth";
 import { FormState } from "./types";
 import { loginSchema, registerSchema } from "./validations";
 
+
 export async function Login(
   _previousState: FormState,
   formData: FormData,
@@ -34,10 +35,12 @@ export async function Login(
       },
       headers: await headers(),
     });
-
+    
     return {
       message: "Login successful!",
     };
+
+    
   } catch (error) {
     console.error("Login failed:", error);
 

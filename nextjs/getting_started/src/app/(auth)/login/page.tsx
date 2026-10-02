@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
 import { Login } from "@/app/lib/actions";
 import { SubmitButton } from "@/app/ui/submit-button";
 import { FormState } from "@/app/lib/types";
@@ -12,6 +12,19 @@ const initialState: FormState = {};
 export default function LoginPage() {
   // Check form status and set message
   const [state, formAction] = useActionState(Login, initialState);
+  
+  // Mock delay and Redirect
+  useEffect(() => {
+  if (state.message !== "Login successful!") {
+    return;
+  }
+
+  const timeout = setTimeout(() => {
+    window.location.href = "/dashboard";
+  }, 500);
+
+  return () => clearTimeout(timeout);
+}, [state.message]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen gap-2">
