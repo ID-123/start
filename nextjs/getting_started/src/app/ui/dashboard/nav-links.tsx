@@ -1,9 +1,8 @@
 "use client";
 
 import {
-  UserGroupIcon,
   HomeIcon,
-  DocumentDuplicateIcon,
+  CalendarDaysIcon
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -13,12 +12,7 @@ import clsx from "clsx";
 // Depending on the size of the application, this would be stored in Link database.
 const links = [
   { name: "Home", href: "/dashboard", icon: HomeIcon },
-  {
-    name: "Invoices",
-    href: "/dashboard/invoices",
-    icon: DocumentDuplicateIcon,
-  },
-  { name: "Customers", href: "/dashboard/customers", icon: UserGroupIcon },
+  {name: "Reservations", href: "/dashboard/reservations", icon: CalendarDaysIcon}  
 ];
 
 export default function NavLinks() {
