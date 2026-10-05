@@ -6,7 +6,14 @@ import { auth } from "./auth";
 import { prisma } from "./prisma";
 import { stripe } from "./stripe";
 
-export async function createCheckoutSession() {
+export async function createCheckoutSession(formData: FormData) {
+  
+  const reservationId = formData.get("reservationId")
+  
+  if (typeof reservationId !== "string" || !reservationId) {
+    throw new Error("Reservation ID is required.")
+  }
+
   const session = await auth.api.getSession({
     headers: await headers(),
   });
@@ -15,11 +22,17 @@ export async function createCheckoutSession() {
     throw new Error("Not logged in");
   }
 
-  const reservation = await prisma.reservation.create({
-    data: {
+  const reservation = await prisma.reservation.findFirst({
+    where: {
+      id: reservationId,
       userId: session.user.id,
+      status: "PENDING",
     },
   });
+
+  if (!reservation) {
+    throw new Error("Reservation not found or can't be paid.")
+  }
 
   const checkoutSession = await stripe.checkout.sessions.create({
     mode: "payment",

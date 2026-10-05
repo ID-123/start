@@ -55,17 +55,38 @@ export default async function ReservationsPage() {
             Delete pending reservation
           </button>
         </form>
-        <form action={createCheckoutSession}>
-          <button
-            type="submit"
-            className="rounded bg-black px-4 py-2 text-white cursor-pointer"
-          >
-            Pay reservation
-          </button>
-        </form>
       </div>
 
       <p>Total: {reservations.length}</p>
+
+      <div className="">
+        {reservations.map((reservation) => (
+          <div key={reservation.id} className="mb-4 rounded border p-4">
+            <p>
+              <strong>ID:</strong> {reservation.id}
+            </p>
+            <p>
+              <strong>Status:</strong> {reservation.status}
+            </p>
+
+            {reservation.status === "PENDING" && (
+              <form action={createCheckoutSession} className="mt-2">
+                <input
+                  type="hidden"
+                  name="reservationId"
+                  value={reservation.id}
+                />
+                <button
+                  type="submit"
+                  className="rounded bg-black px-4 py-2 text-white cursor-pointer"
+                >
+                  Pay Reservation
+                </button>
+              </form>
+            )}
+          </div>
+        ))}
+      </div>
 
       <pre>{JSON.stringify(reservations, null, 2)}</pre>
     </main>
