@@ -7,6 +7,7 @@ import {
   deleteAllReservation,
   deletePendingReservations,
 } from "@/app/lib/reservation-actions";
+import { createCheckoutSession } from "@/app/lib/payment-actions";
 
 export default async function ReservationsPage() {
   const session = await auth.api.getSession({
@@ -52,6 +53,14 @@ export default async function ReservationsPage() {
             className="rounded bg-black px-4 py-2 text-white cursor-pointer"
           >
             Delete pending reservation
+          </button>
+        </form>
+        <form action={createCheckoutSession}>
+          <button
+            type="submit"
+            className="rounded bg-black px-4 py-2 text-white cursor-pointer"
+          >
+            Pay reservation
           </button>
         </form>
       </div>
