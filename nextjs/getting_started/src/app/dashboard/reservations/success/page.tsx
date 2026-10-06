@@ -6,7 +6,7 @@ export default function paymentSucceded() {
       <p>Payment Succeded!</p>
       <Link href={"/dashboard/reservations"} className="border p-1 rounded">
         {" "}
-        Return{" "}
+        Return to main{" "}
       </Link>
     </div>
   );

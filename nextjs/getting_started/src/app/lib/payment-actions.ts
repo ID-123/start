@@ -40,9 +40,9 @@ export async function createCheckoutSession(formData: FormData) {
     line_items: [
       {
         price_data: {
-          currency: "usd",
+          currency: "cop",
           product_data: { name: "Reservation" },
-          unit_amount: 1000,
+          unit_amount: 10000000,
         },
         quantity: 1,
       },

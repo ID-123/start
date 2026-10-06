@@ -9,14 +9,16 @@ import {
 } from "@/app/lib/reservation-actions";
 import { createCheckoutSession } from "@/app/lib/payment-actions";
 
+
 export default async function ReservationsPage() {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
-
+  
   if (!session) {
     return <p>Not Authenticated</p>;
   }
+  
 
   const reservations = await prisma.reservation.findMany({
     where: {
@@ -27,10 +29,11 @@ export default async function ReservationsPage() {
     },
   });
 
+
   return (
     <main>
       <h1 className="mb-4 text-xl">Reservations</h1>
-      <div className="flex flex-row justify-between gap-1">
+      <div className="flex flex-row justify-around gap-1">
         <form action={createReservation} className="mb-4">
           <button
             type="submit"
@@ -88,7 +91,6 @@ export default async function ReservationsPage() {
         ))}
       </div>
 
-      <pre>{JSON.stringify(reservations, null, 2)}</pre>
     </main>
   );
 }

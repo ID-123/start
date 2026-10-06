@@ -4,6 +4,11 @@ import { headers } from "next/headers";
 
 import { auth } from "@/app/lib/auth";
 import { prisma } from "@/app/lib/prisma";
+import { revalidatePath } from "next/cache";
+
+function revalidate(){
+  return revalidatePath("/dashboard/reservations")
+}
 
 export async function createReservation(_formData: FormData): Promise<void> {
   const session = await auth.api.getSession({
@@ -19,6 +24,8 @@ export async function createReservation(_formData: FormData): Promise<void> {
       userId: session.user.id,
     },
   });
+
+  revalidate()
 }
 
 export async function deleteAllReservation() {
@@ -33,6 +40,8 @@ export async function deleteAllReservation() {
   await prisma.reservation.deleteMany({
     where: { userId: session.user.id },
   });
+
+  revalidate()
 }
 
 export async function deletePendingReservations() {
@@ -50,4 +59,6 @@ export async function deletePendingReservations() {
       status: "PENDING",
     },
   });
+
+  revalidate()
 }
